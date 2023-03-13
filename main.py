@@ -1,7 +1,7 @@
 from datetime import datetime
 
 
-# Function to print the data stored in the list
+
 def printDates(dates):
     for i in range(len(dates)):
         print(dates[i])
@@ -46,10 +46,14 @@ class Task:
     def show_data(self):
         print("{} | {} | {} | {}".format(self.title, self.description, self.deadline, self.completed))
 
+    def __repr__(self):
+        return "{} | {} | {} | {}".format(self.title, self.description, self.deadline, self.completed)
+
 
 class TaskList:
     def __init__(self):
         self.tasks_list = []
+
 
     def add_task(self, task: Task):
         return self.tasks_list.append(task)
@@ -96,7 +100,14 @@ class TaskList:
         return task_list_str
 
     def get_tasks_due_today(self):
-        pass
+        current_date_on_current_time = []
+        current_datetime_date = datetime.datetime.now().date()
+        for date_str in self.tasks_list:
+            data = datetime.datetime.strptime(date_str.deadline, '%d-%m-%Y').date()
+            if data.day == current_datetime_date.day:
+                current_date_on_current_time.append(data)
+
+        print(current_datetime_date)
 
     def get_tasks_due_tomorrow(self):
         pass
@@ -110,6 +121,7 @@ if __name__ == '__main__':
     task_2 = Task("2", "Test sad", '21-02-1994', False)
     task_4 = Task("dsad task", "Test sad", '20-02-1994', True)
     task_5 = Task("Test dsa", "Test dsa", '21-02-1994', False)
+    task_6 = Task("Test dsa", "Test dsa", '11-03-2023', False)
     # task.set_data()
     # task.show_data()
     # task_1.change_status()
@@ -123,4 +135,5 @@ if __name__ == '__main__':
 
     # TaskList.get_task(task_1)
     task_found = list_a.get_task("Test task")
-    print(str(task_found))
+
+    print(TaskList.get_tasks_due_today)
